@@ -65,7 +65,7 @@ Returns a JSON object with a randomly generated message token from generateRando
 JSON object is as follows:
 
     {
-        "token":	<generateRandomToken()>
+        "mToken":	<generateRandomToken()>
     }
 
 #### /chat
