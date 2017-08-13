@@ -1,0 +1,160 @@
+/* main.css */
+
+body {
+	font-family: 'Segoe UI', Arial, sans-serif;
+	margin: 0;
+	padding: 0;
+}
+
+header {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: calc(80% + 4px);
+	height: 100px;
+	border: 4px solid #98a655;
+	box-sizing: border-box;
+	background: linear-gradient(to bottom, #98a655 0%, #757b51 100%);
+}
+
+aside {
+	position: fixed;
+	box-sizing: border-box;
+	right: 0;
+	top: 0;
+	height: calc(100% - 54px);
+	width: 20%;
+	border: 4px solid #98a655;
+	border-left: 0;
+	border-bottom: 0;
+	padding: 0 6px;
+	background: linear-gradient(to bottom, #98a655 0%, #757b51 96px);
+    color: #f6f9e7;
+	z-index: 10;
+}
+
+main {
+	height: calc(100% - 158px);
+	position: fixed;
+	top: 100px;
+	width: 80%;
+	border-left: 4px solid #98a655;
+	border-right: 4px solid #98a655;
+	box-sizing: border-box;
+	overflow-y: scroll;
+	background: #2b2d20;
+}
+
+footer {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	height: 50px;
+	width: calc(100% - 8px);
+	border: 4px solid #98a655;
+	background: linear-gradient(to top, #98a655 0%, #757b51 100%);
+}
+
+form {
+	padding: 12px;
+}
+
+input[type="text"]#message_textbox {
+	width: calc(100% - 84px);
+	background: #2b2d20;
+    color: hsl(69, 60%, 88%);
+	font-size: 16px;
+	font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+input[type="submit"]#send_message_button {
+	width: 70px;
+	font-size: 16px;
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(to bottom, #f6f9e7 0%,hsla(69, 60%, 88%, 1) 100%);
+    font-weight: bold;
+}
+
+.msg {
+    margin: 10px;
+    padding: 8px 10px;
+    border-radius: 15px;
+    box-shadow: 4px 4px 10px 0px rgba(160, 173, 158, 0.23);
+	width: auto;
+	max-width: 60%;
+	background: #f6f9e7;
+	border: 2px solid #98a655;
+}
+
+.sent-msg {
+	background: linear-gradient(to bottom, #f6f9e7 0%,hsla(69, 60%, 88%, 1) 100%);
+}
+
+.rcvd-msg {
+	background: linear-gradient(to top, #f6f9e7 0%,hsla(69, 60%, 88%, 1) 100%);
+}
+
+.sent-msg {
+	right: 10px;
+	float: right;
+}
+
+.rcvd-msg {
+	left: 10px;
+	float: left;
+}
+
+.msg p {
+	margin:0;
+}
+
+.msg-text {
+	font-size: 15px;
+	overflow-wrap: break-word;
+}
+
+.msg-timestamp {
+	font-size: 11px;
+	color: #bfbfbf;
+}
+
+.msg-wrapper {
+	overflow: hidden; /* Forces the wrapper div to expand to the height of its content, even though its content is floated */
+}
+
+.faded-msg {
+	opacity: 0.4;
+}
+
+aside p {
+	display: none;
+	font-size: 16px;
+}
+
+aside p span {
+	font-weight: bold;
+}
+
+header h1 {
+	text-align: center;
+	margin: 0;
+	position: relative;
+	top: 50%;
+	margin-top: -35px;
+	font-size:48px;
+	color: rgb(195, 214, 89);
+	text-shadow: -1px -1px 0 #7a882d, 1px -1px 0 #7a882d, -1px 1px 0 #7a882d, 1px 1px 0 #7a882d;
+	user-select: none;
+	cursor: default;
+}
+
+header h1 img {
+	position:relative;
+	top:4px;
+}
+
+input:focus {
+	outline-color: rgb(195, 214, 89);
+	outline-color: #2c81b3;
+	outline-color: white;
+}
