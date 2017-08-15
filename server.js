@@ -17,7 +17,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var ip = require("ip");
 var fs = require("fs");
-var crypto = require("crypto");
+//var crypto = require("crypto");
+var cryptico = require("cryptico");
 
 
 /* The port on which to listen for incoming connections. Change this and restart node to use a
@@ -60,6 +61,29 @@ app.get("/ip", function(req, res) {
 	}
 	res.send(JSON.stringify(response));
 	// res.send("<pre>Host IP:    " + ip.address() + "<br />Visitor IP: " + ipV6toV4(req.ip) + " (" + req.ip + ")" + "</pre>");
+});
+
+app.post("/ip", urlencodedParser, function(req, res) {
+	// Check that they actually sent wcToken
+	if(req.body.wcToken == undefined) {
+		asyncChatSendResponse({"success": false, "errString": "No wcToken provided"}, req, res);
+	}
+
+	console.log(ipV6toV4(req.ip) + " sent POST to /ip with wcToken " + req.body.wcToken);
+	
+	var wcToken = req.body.wcToken;
+	cs = getChatSessionFromWCToken(wcToken);
+
+	if(cs == null) {
+		asyncChatSendResponse({"success": false, "errString": "No ChatSession was found with which the given wcToken is associated", "wcToken": wcToken}, req, res);
+	}
+	
+	response = {
+		"host":		ip.address(),
+		"visitor":	cs.visitor
+	}
+	
+	res.send(JSON.stringify(response));
 });
 
 
@@ -207,8 +231,9 @@ app.post("/chat_pull", urlencodedParser, function(req, res) {
 	var wcToken = req.body.wcToken;
 	cs = getChatSessionFromWCToken(wcToken);
 
-	if(cs == null) {
+	if(cs === null) {
 		asyncChatSendResponse({"success": false, "errString": "No ChatSession was found with which the given wcToken is associated", "wcToken": wcToken}, req, res);
+		return;
 	}
 
 	// Push the queued messages to the web client

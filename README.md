@@ -80,7 +80,7 @@ JSON object is as follows:
 
     {
         "success":	true,
-        "token":	<token>
+        "mToken":	<token>
     }
 
 #### /chat_pull

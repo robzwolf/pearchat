@@ -158,3 +158,14 @@ input:focus {
 	outline-color: #2c81b3;
 	outline-color: white;
 }
+
+#credits_link {
+	position: fixed;
+	bottom: 1px;
+	right: 1px;
+	font-size: 10px;
+}
+
+#credits_link a {
+	color: #fff;
+}

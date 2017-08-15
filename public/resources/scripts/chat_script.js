@@ -3,12 +3,17 @@
 /* Global variable declarations */
 PearChat.TIMEOUT_CONST = 10000;
 
+PearChat.CREDITS_TEXT = "PearChat is by Robbie Jakob-Whitworth.\n\nFavicon by Artem White of https://www.iconfinder.com/icons/753497/fruit_pear_icon#size=128\nLicensed under Creative Commons (Attribute 3.0 Unported)\nhttps://creativecommons.org/licenses/by/3.0/\n\nCryptico library is by wwwtyro of https://github.com/wwwtyro/cryptico.";
+
 $(document).ready(function(){
 	
 	/* Get IPs and fill them on screen */
 	var ipAJAX = $.getJSON({
-		type: "GET",
-		url: "/ip"
+		type: "POST",
+		url: "/ip",
+		data: {
+			"wcToken":	PearChat.wcToken
+		}
 	})
 	.done(function(response){
 		$("#my-ip span").text(response.visitor).parent().show();

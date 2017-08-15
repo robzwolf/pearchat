@@ -1,1 +1,18 @@
 <h1>This is a test <i>ejs</i> file.</h1>
+
+<script type="text/javascript" src="/resources/scripts/cryptico.min.js"></script>
+
+<script>
+
+	var passPhrase 				= "Life is not a competition.";
+	var bits					= 1024;
+	var visitorRSAKey 			= cryptico.generateRSAKey(passPhrase, 1024);
+	var visitorPublicKeyString 	= cryptico.publicKeyString(visitorRSAKey);
+	var plainText = "Hello, World! This is an awesome message!";
+	var encryptionResult 		= cryptico.encrypt(plainText, visitorPublicKeyString)
+	var encryptedText			= encryptionResult.cipher;
+
+	var decryptionResult		= cryptico.decrypt(encryptedText, visitorRSAKey);
+	var decryptedText			= decryptionResult.plaintext;
+
+</script>
