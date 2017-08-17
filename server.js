@@ -17,8 +17,8 @@ var app = express();
 var bodyParser = require("body-parser");
 var ip = require("ip");
 var fs = require("fs");
-//var crypto = require("crypto");
-var cryptico = require("cryptico");
+var crypto = require("crypto");
+//var cryptico = require("cryptico");
 
 
 /* The port on which to listen for incoming connections. Change this and restart node to use a
