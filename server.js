@@ -49,7 +49,10 @@ app.get("/", function(req, res) {
 
 // test_ejs
 app.get("/test_ejs", function(req, res) {
-	res.render("ejs_pages/test");
+	var esjData = {
+		"passPhrase": generateRandomToken()
+	}
+	res.render("ejs_pages/test", esjData);
 });
 
 
@@ -70,19 +73,19 @@ app.post("/ip", urlencodedParser, function(req, res) {
 	}
 
 	console.log(ipV6toV4(req.ip) + " sent POST to /ip with wcToken " + req.body.wcToken);
-	
+
 	var wcToken = req.body.wcToken;
 	cs = getChatSessionFromWCToken(wcToken);
 
 	if(cs == null) {
 		asyncChatSendResponse({"success": false, "errString": "No ChatSession was found with which the given wcToken is associated", "wcToken": wcToken}, req, res);
 	}
-	
+
 	response = {
 		"host":		ip.address(),
 		"visitor":	cs.visitor
 	}
-	
+
 	res.send(JSON.stringify(response));
 });
 

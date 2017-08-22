@@ -2,17 +2,35 @@
 
 <script type="text/javascript" src="/resources/scripts/cryptico.min.js"></script>
 
+<!--<script>
+var cryptico_test_1 = {
+	"passPhrase" 				: "Life is not a competition.",
+	"bits"					    : 1024,
+	"visitorRSAKey" 			: cryptico.generateRSAKey(cryptico_test_1.passPhrase, 1024),
+	"visitorPublicKeyString" 	: cryptico.publicKeyString(cryptico_test_1.visitorRSAKey),
+	"plainText"                 : "Hello, World! This is an awesome message!",
+	"encryptionResult" 	       	: cryptico.encrypt(cryptico_test_1.plainText, cryptico_test_1.visitorPublicKeyString),
+	"encryptedText"		      	: encryptionResult.cipher,
+	"decryptionResult"		    : cryptico.decrypt(cryptico_test_1.encryptedText, cryptico_test_1.visitorRSAKey),
+	"decryptedText"			    : decryptionResult.plaintext
+}
+</script>
+-->
+
+
 <script>
 
-	var passPhrase 				= "Life is not a competition.";
-	var bits					= 1024;
-	var visitorRSAKey 			= cryptico.generateRSAKey(passPhrase, 1024);
-	var visitorPublicKeyString 	= cryptico.publicKeyString(visitorRSAKey);
-	var plainText = "Hello, World! This is an awesome message!";
-	var encryptionResult 		= cryptico.encrypt(plainText, visitorPublicKeyString)
-	var encryptedText			= encryptionResult.cipher;
+    // I am Alice
+    var alice = function() {
 
-	var decryptionResult		= cryptico.decrypt(encryptedText, visitorRSAKey);
-	var decryptedText			= decryptionResult.plaintext;
+        var passPhrase              = "<%= passPhrase %>";
+        var bits                    = 1024;
+        var aliceRSAKey             = cryptico.generateRSAKey(passPhrase, bits);
+        var alicePublicKeyString    = cryptico.publicKeyString(aliceRSAKey);
+        var plainText               = "This is Alice!";
+        var encryptionResult        = cryptico.encrypt(plainText, alicePublicKeyString);
+        var encryptedText           = encryptionResult.cipher;
+        console.log("Alice's encrypted message is", encryptedText)
+    }
 
 </script>
