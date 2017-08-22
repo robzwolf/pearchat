@@ -13,7 +13,7 @@ See README.md for documentation and other information
 
 var express = require("express");
 var app = express();
-
+var https = require("https");
 var bodyParser = require("body-parser");
 var ip = require("ip");
 var fs = require("fs");
@@ -21,9 +21,18 @@ var crypto = require("crypto");
 //var cryptico = require("cryptico");
 
 
+var privateKey = fs.readFileSync("ssl/pear.key","utf8");
+var certificate = fs.readFileSync("ssl/pear.crt","utf8");
+console.log("Loaded private key and certificate.");
+var credentials = {
+	key: privateKey,
+	cert: certificate
+};
+
+
 /* The port on which to listen for incoming connections. Change this and restart node to use a
  * different port */
-var SERVER_PORT = 1337;
+var SERVER_PORT = 8443;
 var sessions = [];
 var usedTokens = [];
 
@@ -387,9 +396,19 @@ var Message = function(sender, content, mToken, timestamp) {
 
 
 // Start the server
-var server = app.listen(SERVER_PORT, function() {
-	var host = ip.address();
-	var port = server.address().port;
+// var server = app.listen(SERVER_PORT, function() {
+	// var host = ip.address();
+	// var port = server.address().port;
 
-	console.log("App listening at http://%s:%s", host, port);
+	// console.log("App listening at http://%s:%s", host, port);
+// });
+
+
+// Start the HTTPS server
+var httpsServer = https.createServer(credentials, app);
+httpsServer.listen(SERVER_PORT, function() {
+	var host = ip.address();
+	var port = httpsServer.address().port;
+	console.log("App listening at https://%s:%s", host, port);
+	console.log("Remember to visit https://localhost:%s if logging into host web client", port);
 });
