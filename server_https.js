@@ -11,6 +11,8 @@ See README.md for documentation and other information
 
 */
 
+console.log("Loading PearChat, please wait...");
+
 var express = require("express");
 var app = express();
 var https = require("https");
@@ -409,6 +411,9 @@ var httpsServer = https.createServer(credentials, app);
 httpsServer.listen(SERVER_PORT, function() {
 	var host = ip.address();
 	var port = httpsServer.address().port;
+	console.log();
+	console.log("========================================================");
 	console.log("App listening at https://%s:%s", host, port);
+	console.log("========================================================");
 	console.log("Remember to visit https://localhost:%s if logging into host web client", port);
 });

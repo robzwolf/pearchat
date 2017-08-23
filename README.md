@@ -27,22 +27,19 @@ necessary.
 
    On Chrome:
 	1) Navigate to `Settings` > `Manage certificates` > `Trusted Root Certification Authorities` > `Import...`
-	2) Import the `pearchat/ssl/rootCA.pem` (NOT `pear.crt`) file. You may have to switch the file type 
+	2) Import the `pearchat/ssl/`**`rootCA.pem`** (**NOT `pear.crt`**) file. You may have to switch the file type 
 	   to `All Files (*.*)`.
-	3) At the `Security Warning` alert box, ensure the `Thumbprint (sha1)` reads as follows:  
-	   `F38A4A84 6E24F05E 2FCB3682 0D7Af120 661E3235`
-	4) If the thumbprint matches, click on `Yes` to install the certificate.
-	5) Close the certificate manager and exit Chrome settings.
+	3) At the `Security Warning` alert box, click on `Yes` to install certificate.
+	4) Close the certificate manager and exit Chrome settings.
+	5) **Restart Chrome.**
 	
    On Firefox:
     1) Navigate to `Preferences` > `Advanced` > `Certificates` > `View Certificates` > `Import...`
 	2) Import the `pearchat/ssl/rootCA.pem` (NOT `pear.crt`) file.
 	3) Tick `Trust this CA to identify web sites.` at the `Downloading Certificate` window.
-	4) Click on `View` to examine the CA certificate and verify that the SHA-256 fingerprint is:  
-	   `49:A3:3C:75:88:16:E7:96:94:41:2E:14:70:49:C9:C4:27:D2:F1:CD:87:00:0C:A6:42:C1:63:D5:5E:D2:82:19`
-	5) Close the `Certificate Viewer: "PearChat CN"` window.
-	6) Click `OK` to import the certificate.
-	7) Click `OK` to close the certificate manager. Exit preferences.
+	4) Close the `Certificate Viewer: "PearChat CN"` window.
+	5) Click `OK` to import the certificate.
+	6) Click `OK` to close the certificate manager. Exit preferences.
 	
 3) Navigate to `http://localhost:(SERVER_PORT)` on the host and `http://(Host's internal IP):(SERVER_PORT)` on
 the visitor.
