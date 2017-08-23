@@ -9,7 +9,7 @@ The idea is as follows:
 
 There are two people, Alice and Bob, who are on the same network and wish to communicate with each other. In this scenario, Alice will be the server and Bob will be a client. However, note that Alice will also be a client. To avoid this confusion, we term Alice's computer the HOST and Bob's computer the VISITOR.
 
-Alice (the host) needs to run a node.js instance on her computer. We will call this node.js instance the SERVER to indicate that is it the application which manages the communication between the host and the visitor. Alice will then connect to her own computer using a web browser to `http://localhost(SERVER_PORT)`, and Bob (the visitor) will connect to Alice via his web browser at `http://(Alice's internal IP):(SERVER_PORT)`. As both web browsers act as clients to the server, we shall call them the WEB CLIENT. This term is used to indicate that it is unimportant whether it is the host's web browser or the visitor's web browser requesting data from the server.
+Alice (the host) needs to run a node.js instance on her computer. We will call this node.js instance the SERVER to indicate that is it the application which manages the communication between the host and the visitor. Alice will then connect to her own computer using a web browser to `https://localhost(SERVER_PORT)`, and Bob (the visitor) will connect to Alice via his web browser at `https://(Alice's internal IP):(SERVER_PORT)`. As both web browsers act as clients to the server, we shall call them the WEB CLIENT. This term is used to indicate that it is unimportant whether it is the host's web browser or the visitor's web browser requesting data from the server.
 
 Through this setup, Alice and Bob can send messages to each other. 
 
@@ -18,7 +18,7 @@ Through this setup, Alice and Bob can send messages to each other.
 ### Setup
 Because PearChat uses HTTPS, a little initial setup is required.
 1) Install node.js on one of the two machines that wish to communicate (must be UNIX-based). Reboot if necessary.
-2) Navigate to the `pearchat/` folder using a terminal.
+2) Navigate to the `pearchat/` directory using a terminal.
 3) Determine the private IP address of the host and the visitor. 
 4) Run `ssl/create_ssl.sh <HOST IP>` to create a new certificate authority and a device certificate.  
    For example, if your host's private IP is `192.168.1.150`, then you would run `ssl/create_ssl.sh 192.168.1.150` from the terminal.  
@@ -37,20 +37,21 @@ Because PearChat uses HTTPS, a little initial setup is required.
     1) Navigate to `Preferences` > `Advanced` > `Certificates` > `View Certificates` > `Import...`
 	2) Import the `pearchat/ssl/`**`rootCA.pem`** (**NOT `pear.crt`**) file.
 	3) Tick `Trust this CA to identify web sites` at the `Downloading Certificate` window.
-	4) Close the `Certificate Viewer: "PearChat"` window.
-	5) Click `OK` to import the certificate.
-	6) Click `OK` to close the certificate manager. Exit preferences.  
+	4) Click `OK` to import the certificate.
+	5) Click `OK` to close the certificate manager. Exit preferences.  
 	   There is no need to restart Firefox.
+	   
+6) Run `node server_https.js` to start the PearChat server on the default port (`8443`).  
+   To specify another port, simply run `node server_https.js [port]`. For example, to run the server on port `8000`, run `node server_https.js 8000`.
 	
-6) Navigate to `http://localhost:(SERVER_PORT)` on the host and `http://(HOST IP):(SERVER_PORT)` on
-the visitor.
+7) Navigate to `https://(HOST IP):(SERVER_PORT)` on the visitor and `https://localhost:(SERVER_PORT)` on the host.
 
 #### Note
 Whenever the host changes their private IP address, a new certificate authority and device certificate need to be created. To do this, simply remove the old rootCA.pem certificate from both the host's and visitor's browsers, and then repeat steps 2-5 above.
 
 ### Sessions
 1) Host starts server
-2) Visitor connects to http://(Host's internal IP):(SERVER_PORT)
+2) Visitor connects to https://(Host's internal IP):(SERVER_PORT)
 
 
 ### Structure

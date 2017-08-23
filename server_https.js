@@ -408,7 +408,7 @@ var Message = function(sender, content, mToken, timestamp) {
 	// var host = ip.address();
 	// var port = server.address().port;
 
-	// console.log("App listening at http://%s:%s", host, port);
+	// console.log("App listening at https://%s:%s", host, port);
 // });
 
 
