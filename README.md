@@ -23,7 +23,7 @@ Because PearChat uses HTTPS, a little initial setup is required.
 4) Run `ssl/create_ssl.sh <HOST IP>` to create a new certificate authority and a device certificate.  
    For example, if your host's private IP is `192.168.1.150`, then you would run `ssl/create_ssl.sh 192.168.1.150` from the terminal.  
    At the warning about deleting pre-existing certificates, type `Y` to confirm deletion of any pre-existing CA certificates from the `ssl/` directory.
-5) On both the host and the visitor, you need to install the newly created PearChat CA certificate.
+5) On both the host and the visitor, you need to install the newly created PearChat CA certificate. Securely transfer `ssl/rootCA.pem` to the visitor machine, then follow the instructions according to your browser:
 
    On Chrome:
 	1) Navigate to `Settings` > `Manage certificates` > `Trusted Root Certification Authorities` > `Import...`
