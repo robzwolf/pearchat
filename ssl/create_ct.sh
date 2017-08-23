@@ -1,7 +1,17 @@
+# Check that a rootCA.key and a rootCA.pem file exist
+# (i.e. that ssl/create_ca.sh has been run)
+if [ -f "ssl/rootCA.key" ] && [ -f "ssl/rootCA.pem" ]
+then
+	echo "";
+else
+	echo "ERROR: Run ssl/create_ca.sh first.";
+	exit;
+fi
+
 if [ -z "$1" ]
 then
   echo "Please supply a local IP address";
-  echo "e.g. 10.0.2.15"
+  echo "e.g. 192.168.0.101"
   exit;
 fi
 
@@ -12,16 +22,6 @@ echo ""
 rm -f ssl/pear.crt
 rm -f ssl/pear.csr
 rm -f ssl/pear.key
-rm -f ssl/rootCA.key
-rm -f ssl/rootCA.pem
-rm -f ssl/rootCA.srl
-
-# Create the root certificate and key
-openssl genrsa -out ssl/rootCA.key 2048
-#; echo GB; echo UK; echo ; echo PearChat; echo ; echo PearChat; echo;
-echo "Created key rootCA.key"
-openssl req -x509 -new -nodes -key ssl/rootCA.key -sha256 -days 1024 -out ssl/rootCA.pem -subj '/CN=PearChat/O=PearChat/C=GB'
-echo "Created certificate rootCA.pem"
 
 # Always create a new private key
 KEY_OPT="-keyout"
@@ -48,7 +48,14 @@ openssl req -new -newkey rsa:2048 -sha256 -nodes $KEY_OPT ssl/pear.key -subj "$S
 cat ssl/v3.ext | sed s/%%DOMAIN%%/$COMMON_NAME/g > /tmp/__v3.ext
 openssl x509 -req -in ssl/pear.csr -CA ssl/rootCA.pem -CAkey ssl/rootCA.key -CAcreateserial -out ssl/pear.crt -days $NUM_OF_DAYS -sha256 -extfile /tmp/__v3.ext 
 
+# Clean-up v3.ext
+rm -f ssl/v3.ext
 
-echo "Created certificate and private key."
-
-
+echo " "
+echo " +=======================================+"
+echo " | Created certificate and private key.  |"
+echo " | Remember to install rootCA.pem on all |"
+echo " | machines which will use PearChat!     |"
+echo " | Run node server_https.js when ready.  |"
+echo " +=======================================+"
+echo ""

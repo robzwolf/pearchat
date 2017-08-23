@@ -17,13 +17,13 @@ Through this setup, Alice and Bob can send messages to each other.
 
 ### Setup
 Because PearChat uses HTTPS, a little initial setup is required.
-1) Install node.js on one of the two machines that wish to communicate. Reboot if
-necessary.
+1) Install node.js on one of the two machines that wish to communicate. Reboot if necessary.
 2) Navigate to the `pearchat/` folder using a terminal.
-3) Determine the local IP address of the host and the visitor. 
-4) Run `ssl/create.sh <HOST IP>` from the terminal. For example, if your host's local IP
-   192.168.1.150, then you would run `ssl/create.sh 192.168.1.150` from the terminal.
-5) On both the host and the visitor, you need to install the PearChat CA certificate.
+3) Determine the private IP address of the host and the visitor. 
+4) Run `ssl/create_ssl.sh <HOST IP>` to create a new certificate authority and a device certificate.  
+   For example, if your host's private IP is `192.168.1.150`, then you would run `ssl/create_ssl.sh 192.168.1.150` from the terminal.  
+   At the warning about deleting pre-existing certificates, type `Y` to confirm deletion of any pre-existing CA certificates from the `ssl/` directory.
+5) On both the host and the visitor, you need to install the newly created PearChat CA certificate.
 
    On Chrome:
 	1) Navigate to `Settings` > `Manage certificates` > `Trusted Root Certification Authorities` > `Import...`
@@ -35,16 +35,18 @@ necessary.
 	
    On Firefox:
     1) Navigate to `Preferences` > `Advanced` > `Certificates` > `View Certificates` > `Import...`
-	2) Import the `pearchat/ssl/rootCA.pem` (NOT `pear.crt`) file.
-	3) Tick `Trust this CA to identify web sites.` at the `Downloading Certificate` window.
-	4) Close the `Certificate Viewer: "PearChat CN"` window.
+	2) Import the `pearchat/ssl/`**`rootCA.pem`** (**NOT `pear.crt`**) file.
+	3) Tick `Trust this CA to identify web sites` at the `Downloading Certificate` window.
+	4) Close the `Certificate Viewer: "PearChat"` window.
 	5) Click `OK` to import the certificate.
-	6) Click `OK` to close the certificate manager. Exit preferences.
+	6) Click `OK` to close the certificate manager. Exit preferences.  
+	   There is no need to restart Firefox.
 	
-3) Navigate to `http://localhost:(SERVER_PORT)` on the host and `http://(Host's internal IP):(SERVER_PORT)` on
+6) Navigate to `http://localhost:(SERVER_PORT)` on the host and `http://(HOST IP):(SERVER_PORT)` on
 the visitor.
 
-
+#### Note
+Whenever the host changes their private IP address, a new certificate authority and device certificate need to be created. To do this, simply remove the old rootCA.pem certificate from both the host's and visitor's browsers, and then repeat steps 2-5 above.
 
 ### Sessions
 1) Host starts server

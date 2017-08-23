@@ -32,9 +32,15 @@ var credentials = {
 };
 
 
-/* The port on which to listen for incoming connections. Change this and restart node to use a
- * different port */
-var SERVER_PORT = 8443;
+/* The port on which to listen for incoming connections.
+     node server_https.js [port]
+   will start the server on [port], or 8443 by default */
+var SERVER_PORT;
+if(process.argv[2]) {
+	SERVER_PORT = process.argv[2];
+} else {
+	SERVER_PORT = 8443;
+}
 var sessions = [];
 var usedTokens = [];
 
