@@ -17,7 +17,7 @@ Through this setup, Alice and Bob can send messages to each other.
 
 ### Setup
 Because PearChat uses HTTPS, a little initial setup is required.
-1) Install node.js on one of the two machines that wish to communicate. Reboot if necessary.
+1) Install node.js on one of the two machines that wish to communicate (must be UNIX-based). Reboot if necessary.
 2) Navigate to the `pearchat/` folder using a terminal.
 3) Determine the private IP address of the host and the visitor. 
 4) Run `ssl/create_ssl.sh <HOST IP>` to create a new certificate authority and a device certificate.  
