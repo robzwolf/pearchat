@@ -389,7 +389,7 @@ var getUnpairedChatSessions = function() {
 /* Create a ChatSession class */
 var ChatSession = function(visitor, sToken, hToken, vToken) {
 	this.visitor = visitor;				// Visitor's IP
-	this.startTime = prettyTimeNow();	// Start time of the
+	this.startTime = prettyTimeNow();	// Start time of the chat session
 	this.messages = [];					// Messages that have already been sent, these can probably be periodically removed
 	this.pendingHMessages = [];			// Messages sent FROM the visitor that are waiting to be sent TO the host
 	this.pendingVMessages = [];			// Messages sent FROM the host that are waiting to be sent TO the visitor

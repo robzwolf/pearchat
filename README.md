@@ -1,4 +1,3 @@
-	/*
 	    ____                  ________          __
 	   / __ \___  ____  _____/ ____/ /_  ____  / /_
 	  / /_/ / _ \/ __ \/ ___/ /   / __ \/ __ \/ __/
@@ -6,8 +5,7 @@
 	/_/    \___/\__,_/_/   \____/_/ /_/\__,_/\__/
 
 	Created by Robbie Jakob-Whitworth during the summer of 2017
-
-	*/
+	
 
 _View this README in a markdown viewer (e.g. http://dillinger.io/) to ensure commands are rendered correctly onscreen_
 
@@ -60,14 +58,14 @@ Because PearChat uses HTTPS, a little initial setup is required.
 8) Navigate to `https://(HOST IP):(SERVER_PORT)` on the visitor and `https://localhost:(SERVER_PORT)` on the host.
 
 #### Note
-Whenever the host changes their private IP address, a new certificate authority and device certificate need to be created. To do this, simply remove the old rootCA.pem certificate from both the host's and visitor's browsers, and then repeat steps 2-5 above.
+Whenever the host changes their private IP address, a new certificate authority and device certificate need to be created. To do this, simply remove the old `rootCA.pem` certificate from both the host's and visitor's browsers, and then repeat steps 2-5 above.
 
 
 ### Custom Port
 By default, `server_https.js` will run on port `8443`. This can be changed by specifying the port from the command line. For example, to run the server on port `8000`, run `node server_https.js 8000`.
 
 
-### `ChatSessions`
+### ChatSessions
 1) Host starts server.
 2) Visitor connects to `https://(HOST_IP):(SERVER_PORT)`.
 3) Host connects to `https://localhost:(SERVER_PORT)`.
@@ -118,7 +116,7 @@ A random identifier token for the web client is generated and sent with the page
 #### /chat_send
 Accepts POST requests from a web client which is sending a message. The incoming POST data should include the message text (`"message"`), its identifying message token (`"mToken"`), the web client's identifying token (`"wcToken"`) and the timestamp at which it was sent (`"timestamp"`).  
 
-When the message has been accepted, we call asyncChatSendResponse(), which sends a JSON response back to the web client acknowledging receipt of the message. If the web client does not receive a `success:true` response, then the web client handles this appropriately.  
+When the message has been accepted, we call `asyncChatSendResponse()`, which sends a JSON response back to the web client acknowledging receipt of the message. If the web client does not receive a `success:true` response, then the web client handles this appropriately.  
 JSON response object is as follows:
 
     {
