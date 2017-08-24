@@ -19,11 +19,12 @@ Through this setup, Alice and Bob can send messages to each other.
 Because PearChat uses HTTPS, a little initial setup is required.
 1) Install node.js on one of the two machines that wish to communicate (must be UNIX-based). Reboot if necessary.
 2) Navigate to the `pearchat/` directory using a terminal.
-3) Determine the private IP address of the host and the visitor. 
-4) Run `ssl/create_ssl.sh <HOST IP>` to create a new certificate authority and a device certificate.  
+3) We need to set execute permissions on the scripts in the `pearchat/ssl/` directory. Run `find ssl/. -name "*.sh" | xargs chmod 777`.
+4) Determine the private IP address of the host and the visitor. 
+5) Run `ssl/create_ssl.sh <HOST IP>` to create a new certificate authority and a device certificate.  
    For example, if your host's private IP is `192.168.1.150`, then you would run `ssl/create_ssl.sh 192.168.1.150` from the terminal.  
    At the warning about deleting pre-existing certificates, type `Y` to confirm deletion of any pre-existing CA certificates from the `ssl/` directory.
-5) On both the host and the visitor, you need to install the newly created PearChat CA certificate. Securely transfer `ssl/rootCA.pem` to the visitor machine, then follow the instructions according to your browser:
+6) On both the host and the visitor, you need to install the newly created PearChat CA certificate. Securely transfer `ssl/rootCA.pem` to the visitor machine, then follow the instructions according to your browser:
 
    On Chrome:
 	1) Navigate to `Settings` > `Manage certificates` > `Trusted Root Certification Authorities` > `Import...`
@@ -41,10 +42,9 @@ Because PearChat uses HTTPS, a little initial setup is required.
 	5) Click `OK` to close the certificate manager. Exit preferences.  
 	   There is no need to restart Firefox.
 	   
-6) Run `node server_https.js` to start the PearChat server on the default port (`8443`).  
-   To specify another port, simply run `node server_https.js [port]`. For example, to run the server on port `8000`, run `node server_https.js 8000`.
-	
-7) Navigate to `https://(HOST IP):(SERVER_PORT)` on the visitor and `https://localhost:(SERVER_PORT)` on the host.
+7) Run `node server_https.js` to start the PearChat server on the default port (`8443`).  
+   To specify another port, simply run `node server_https.js [port]`. For example, to run the server on port `8000`, run `node server_https.js 8000`.	
+8) Navigate to `https://(HOST IP):(SERVER_PORT)` on the visitor and `https://localhost:(SERVER_PORT)` on the host.
 
 #### Note
 Whenever the host changes their private IP address, a new certificate authority and device certificate need to be created. To do this, simply remove the old rootCA.pem certificate from both the host's and visitor's browsers, and then repeat steps 2-5 above.
