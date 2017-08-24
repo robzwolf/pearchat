@@ -1,12 +1,4 @@
-while true; do
-	echo "WARNING: This will delete all pre-existing certificates in the ssl folder."
-	read -p "Proceed? [Y/N]: " yn
-	case $yn in
-		[Yy]* ) break;;
-		[Nn]* ) echo "Exiting..."; exit;;
-		* ) echo "Please answer (y)es or (n)o.";;
-	esac
-done
+
 
 echo "Creating root certificate authority, please wait..."
 echo ""

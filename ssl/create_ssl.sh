@@ -5,6 +5,16 @@ then
   exit;
 fi
 
+while true; do
+	echo "WARNING: This will delete all pre-existing certificates in the ssl/ directory."
+	read -p "Proceed? [Y/N]: " yn
+	case $yn in
+		[Yy]* ) break;;
+		[Nn]* ) echo "Exiting..."; exit;;
+		* ) echo "Please answer (y)es or (n)o.";;
+	esac
+done
+
 echo "Running ssl/create_ca.sh..."
 echo ""
 ssl/create_ca.sh

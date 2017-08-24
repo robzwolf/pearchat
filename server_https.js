@@ -22,9 +22,16 @@ var fs = require("fs");
 var crypto = require("crypto");
 //var cryptico = require("cryptico");
 
-
-var privateKey = fs.readFileSync("ssl/pear.key","utf8");
-var certificate = fs.readFileSync("ssl/pear.crt","utf8");
+var privateKey;
+var certificate;
+try {	
+	privateKey = fs.readFileSync("ssl/pear.key","utf8");
+	certificate = fs.readFileSync("ssl/pear.crt","utf8");
+} catch (e) {
+	console.log("");
+	console.log("ERROR\nNo certificates could be found. Have you run 'ssl/create_ssl.sh <host IP>'?");
+	process.exit(1);
+}
 console.log("Loaded private key and certificate.");
 var credentials = {
 	key: privateKey,
@@ -80,7 +87,6 @@ app.get("/ip", function(req, res) {
 		"visitor":	ipV6toV4(req.ip)
 	}
 	res.send(JSON.stringify(response));
-	// res.send("<pre>Host IP:    " + ip.address() + "<br />Visitor IP: " + ipV6toV4(req.ip) + " (" + req.ip + ")" + "</pre>");
 });
 
 app.post("/ip", urlencodedParser, function(req, res) {
@@ -88,8 +94,8 @@ app.post("/ip", urlencodedParser, function(req, res) {
 	if(req.body.wcToken == undefined) {
 		asyncChatSendResponse({"success": false, "errString": "No wcToken provided"}, req, res);
 	}
-
 	console.log(ipV6toV4(req.ip) + " sent POST to /ip with wcToken " + req.body.wcToken);
+
 
 	var wcToken = req.body.wcToken;
 	cs = getChatSessionFromWCToken(wcToken);
@@ -232,10 +238,7 @@ app.post("/chat_send", urlencodedParser, function(req, res) {
 	asyncChatSendResponse({"success": true, "mToken": req.body.mToken}, req, res);
 });
 
-var asyncChatSendResponse = function(response, req, res) {
-	res.send(JSON.stringify(response));
-	console.log("Sent, to " + ipV6toV4(req.ip) + ", " + JSON.stringify(response));
-}
+
 
 
 // /chat_pull
@@ -301,6 +304,10 @@ app.post("/chat_pull", urlencodedParser, function(req, res) {
 
 });
 
+var asyncChatSendResponse = function(response, req, res) {
+	res.send(JSON.stringify(response));
+	console.log("Sent, to " + ipV6toV4(req.ip) + ", " + JSON.stringify(response));
+}
 
 
 var ipV6toV4 = function(ip) {
